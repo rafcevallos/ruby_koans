@@ -27,6 +27,8 @@ class AboutKeywordArguments < Neo::Koan
   # THINK ABOUT IT:
   #
   # Keyword arguments always have a default value, making them optional to the caller
+  # Link to a helpful article: https://thoughtbot.com/upcase/videos/ruby-keyword-arguments
+  #
 
 
 end
