@@ -13,7 +13,7 @@ class AboutKeywordArguments < Neo::Koan
     assert_equal [1, 2], method_with_keyword_arguments(two: 2)
   end
 
-  def method_with_keyword_arguments_with_mandatory_argument(one, two: 2, three: 3)
+  def method_with_keyword_arguments_with_mandatory_argument(one, two: 2, three: 3) # one is a mandatory argument. the others are optional
     [one, two, three]
   end
 
@@ -21,7 +21,7 @@ class AboutKeywordArguments < Neo::Koan
     exception = assert_raise (ArgumentError) do
       method_with_keyword_arguments_with_mandatory_argument
     end
-    assert_match(/expected 3, received 0/, exception.message)
+    assert_match(/given 0, expected 1/, exception.message)
   end
 
   # THINK ABOUT IT:
