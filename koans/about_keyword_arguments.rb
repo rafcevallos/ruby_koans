@@ -28,7 +28,11 @@ class AboutKeywordArguments < Neo::Koan
   #
   # Keyword arguments always have a default value, making them optional to the caller
   # Link to a helpful article: https://thoughtbot.com/upcase/videos/ruby-keyword-arguments
-  #
 
+  # Benefits from the aforementioned article:
+  # With positional arguments, position matters. If we remove one or move it around, the meaning changes.
+  # Keyword arguments don't care about position, which makes adding a new argument easy, especially if it has a default value (since callers don't have to change).
+  # Keyword arguments also go well with positional arguments.
+  # One pattern thoughtbot uses is a positional argument as the first, "main" argument, with "secondary" arguments as keyword arguments after it.
 
 end
