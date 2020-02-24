@@ -8,14 +8,18 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 #
 # * A set of three ones is 1000 points
 #
-# * A set of three numbers (other than ones) is worth 100 times the
-#   number. (e.g. three fives is 500 points).
+# * A set of three numbers (other than ones) is worth 100 times the number.
+#  (e.g. three fives is 500 points)
 #
 # * A one (that is not part of a set of three) is worth 100 points.
+#  so if you roll three fives and the fourth dice is one, you'll score 600 points on this roll
 #
 # * A five (that is not part of a set of three) is worth 50 points.
+#  so if you roll three fours and the fourth dice is five, you'll score 450 points on this roll
 #
 # * Everything else is worth 0 points.
+#  so if you roll three fours and the fourth dice is five and the last die is a 6, you'll score 450 points on this roll
+#  so if you roll three fours and the fourth dice is five and the last die is a 1, you'll score 550 points on this roll
 #
 #
 # Examples:
@@ -23,7 +27,7 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 # score([1,1,1,5,1]) => 1150 points
 # score([2,3,4,6,2]) => 0 points
 # score([3,4,5,3,3]) => 350 points
-# score([1,5,1,2,4]) => 250 points
+# score([1,5,1,2,4]) => 250 points (any die that is a 1 and not    a part of a set is still 100 points)
 #
 # More scoring examples are given in the tests below:
 #
@@ -31,6 +35,25 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  # from https://gist.github.com/markjaquith/a440b838d49c2223b944
+
+  myscore = 0
+  # die values                1    2    3    4    5    6
+  triple_scoremap = [ nil, 1000, 200, 300, 400, 500, 600 ]
+  single_scoremap = [ nil,  100,   0,   0,   0,  50,   0 ]
+  if dice.length > 2
+    (1..6).each do |num|
+      if dice.count(num) > 2
+        myscore += triple_scoremap[num]
+        3.times { dice.delete_at( dice.index(num) ) }
+        break
+      end
+    end
+  end
+  dice.each do |num|
+    myscore += single_scoremap[num]
+  end
+  return myscore
 end
 
 class AboutScoringProject < Neo::Koan
